@@ -4,9 +4,9 @@ use cast::u8;
 use stm32f0x0::{I2C1, I2C2};
 
 use gpio::gpioa::{PA10, PA9};
-use gpio::gpiob::{PB6, PB7, PB8, PB9};
-use gpio::gpiof::{PF0, PF1, PF6};
-use gpio::AF4;
+use gpio::gpiob::{PB6, PB7, PB8, PB9, PB10, PB11, PB13, PB14};
+use gpio::gpiof::{PF0, PF1};
+use gpio::{AF1, AF4, AF5};
 use hal::blocking::i2c::{Write, WriteRead};
 use rcc::{APB1, Clocks};
 use time::Hertz;
@@ -32,20 +32,23 @@ pub unsafe trait SclPin<I2C> {}
 /// SDA pin -- DO NOT IMPLEMENT THIS TRAIT
 pub unsafe trait SdaPin<I2C> {}
 
-// unsafe impl SclPin<I2C1> for PA15<AF4> {}
-unsafe impl SclPin<I2C1> for PB6<AF4> {}
-unsafe impl SclPin<I2C1> for PB8<AF4> {}
+unsafe impl SclPin<I2C1> for PA9<AF4> {}
+unsafe impl SclPin<I2C1> for PB6<AF1> {}
+unsafe impl SclPin<I2C1> for PB8<AF1> {}
+unsafe impl SclPin<I2C1> for PB10<AF1> {}
+unsafe impl SclPin<I2C1> for PF1<AF1> {}
 
-unsafe impl SclPin<I2C2> for PA9<AF4> {}
-unsafe impl SclPin<I2C2> for PF1<AF4> {}
-unsafe impl SclPin<I2C2> for PF6<AF4> {}
+unsafe impl SclPin<I2C2> for PB10<AF1> {}
+unsafe impl SclPin<I2C2> for PB13<AF5> {}
 
-// unsafe impl SdaPin<I2C1> for PA14<AF4> {}
-unsafe impl SdaPin<I2C1> for PB7<AF4> {}
-unsafe impl SdaPin<I2C1> for PB9<AF4> {}
+unsafe impl SdaPin<I2C1> for PA10<AF4> {}
+unsafe impl SdaPin<I2C1> for PB7<AF1> {}
+unsafe impl SdaPin<I2C1> for PB9<AF1> {}
+unsafe impl SdaPin<I2C1> for PB11<AF1> {}
+unsafe impl SdaPin<I2C1> for PF0<AF1> {}
 
-unsafe impl SdaPin<I2C2> for PA10<AF4> {}
-unsafe impl SdaPin<I2C2> for PF0<AF4> {}
+unsafe impl SdaPin<I2C2> for PB11<AF1> {}
+unsafe impl SdaPin<I2C2> for PB14<AF5> {}
 
 /// I2C peripheral operating in master mode
 pub struct I2c<I2C, PINS> {
