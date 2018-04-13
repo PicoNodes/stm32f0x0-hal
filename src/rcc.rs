@@ -3,7 +3,7 @@
 use core::cmp;
 
 use cast::u32;
-use stm32f30x::{rcc, RCC};
+use stm32f0x0::{rcc, RCC};
 
 use flash::ACR;
 use time::Hertz;
@@ -189,22 +189,6 @@ impl CFGR {
 
         assert!(pclk1 <= 36_000_000);
 
-        let ppre2_bits = self.pclk2
-            .map(|pclk2| match hclk / pclk2 {
-                0 => unreachable!(),
-                1 => 0b011,
-                2 => 0b100,
-                3...5 => 0b101,
-                6...11 => 0b110,
-                _ => 0b111,
-            })
-            .unwrap_or(0b011);
-
-        let ppre2 = 1 << (ppre2_bits - 0b011);
-        let pclk2 = hclk / u32(ppre2);
-
-        assert!(pclk2 <= 72_000_000);
-
         // adjust flash wait states
         unsafe {
             acr.acr().write(|w| {
@@ -230,9 +214,8 @@ impl CFGR {
 
             // SW: PLL selected as system clock
             rcc.cfgr.modify(|_, w| unsafe {
-                w.ppre2()
-                    .bits(ppre2_bits)
-                    .ppre1()
+                w
+                    .ppre()
                     .bits(ppre1_bits)
                     .hpre()
                     .bits(hpre_bits)
@@ -244,9 +227,8 @@ impl CFGR {
 
             // SW: HSI selected as system clock
             rcc.cfgr.write(|w| unsafe {
-                w.ppre2()
-                    .bits(ppre2_bits)
-                    .ppre1()
+                w
+                    .ppre()
                     .bits(ppre1_bits)
                     .hpre()
                     .bits(hpre_bits)
@@ -258,9 +240,7 @@ impl CFGR {
         Clocks {
             hclk: Hertz(hclk),
             pclk1: Hertz(pclk1),
-            pclk2: Hertz(pclk2),
             ppre1,
-            ppre2,
             sysclk: Hertz(sysclk),
         }
     }
@@ -273,10 +253,7 @@ impl CFGR {
 pub struct Clocks {
     hclk: Hertz,
     pclk1: Hertz,
-    pclk2: Hertz,
     ppre1: u8,
-    // TODO remove `allow`
-    #[allow(dead_code)] ppre2: u8,
     sysclk: Hertz,
 }
 
@@ -291,19 +268,8 @@ impl Clocks {
         self.pclk1
     }
 
-    /// Returns the frequency of the APB2
-    pub fn pclk2(&self) -> Hertz {
-        self.pclk2
-    }
-
     pub(crate) fn ppre1(&self) -> u8 {
         self.ppre1
-    }
-
-    // TODO remove `allow`
-    #[allow(dead_code)]
-    pub(crate) fn ppre2(&self) -> u8 {
-        self.ppre2
     }
 
     /// Returns the system (core) frequency

@@ -95,7 +95,7 @@ macro_rules! gpio {
             use core::marker::PhantomData;
 
             use hal::digital::OutputPin;
-            use stm32f30x::{$gpioy, $GPIOX};
+            use stm32f0x0::{$gpioy, $GPIOX};
 
             use rcc::AHB;
             use super::{
@@ -501,19 +501,17 @@ gpio!(GPIOA, gpioa, gpioa, iopaen, ioparst, PAx, [
     PA10: (pa10, 10, Input<Floating>, AFRH),
     PA11: (pa11, 11, Input<Floating>, AFRH),
     PA12: (pa12, 12, Input<Floating>, AFRH),
-    // TODO these are configured as JTAG pins
-    // PA13: (13, Input<Floating>),
-    // PA14: (14, Input<Floating>),
-    // PA15: (15, Input<Floating>),
+    PA13: (pa13, 13, Input<Floating>, AFRH),
+    PA14: (pa14, 14, Input<Floating>, AFRH),
+    PA15: (pa15, 15, Input<Floating>, AFRH),
 ]);
 
-gpio!(GPIOB, gpiob, gpiob, iopben, iopbrst, PBx, [
+gpio!(GPIOB, gpiob, gpiof, iopben, iopbrst, PBx, [
     PB0: (pb0, 0, Input<Floating>, AFRL),
     PB1: (pb1, 1, Input<Floating>, AFRL),
     PB2: (pb2, 2, Input<Floating>, AFRL),
-    // TODO these are configured as JTAG pins
-    // PB3: (3, Input<Floating>),
-    // PB4: (4, Input<Floating>),
+    PB3: (pb3, 3, Input<Floating>, AFRL),
+    PB4: (pb4, 4, Input<Floating>, AFRL),
     PB5: (pb5, 5, Input<Floating>, AFRL),
     PB6: (pb6, 6, Input<Floating>, AFRL),
     PB7: (pb7, 7, Input<Floating>, AFRL),
@@ -527,7 +525,7 @@ gpio!(GPIOB, gpiob, gpiob, iopben, iopbrst, PBx, [
     PB15: (pb15, 15, Input<Floating>, AFRH),
 ]);
 
-gpio!(GPIOC, gpioc, gpioc, iopcen, iopcrst, PCx, [
+gpio!(GPIOC, gpioc, gpiof, iopcen, iopcrst, PCx, [
     PC0: (pc0, 0, Input<Floating>, AFRL),
     PC1: (pc1, 1, Input<Floating>, AFRL),
     PC2: (pc2, 2, Input<Floating>, AFRL),
@@ -546,50 +544,21 @@ gpio!(GPIOC, gpioc, gpioc, iopcen, iopcrst, PCx, [
     PC15: (pc15, 15, Input<Floating>, AFRH),
 ]);
 
-gpio!(GPIOD, gpiod, gpioc, iopden, iopdrst, PDx, [
-    PD0: (pd0, 0, Input<Floating>, AFRL),
-    PD1: (pd1, 1, Input<Floating>, AFRL),
-    PD2: (pd2, 2, Input<Floating>, AFRL),
-    PD3: (pd3, 3, Input<Floating>, AFRL),
-    PD4: (pd4, 4, Input<Floating>, AFRL),
-    PD5: (pd5, 5, Input<Floating>, AFRL),
-    PD6: (pd6, 6, Input<Floating>, AFRL),
-    PD7: (pd7, 7, Input<Floating>, AFRL),
-    PD8: (pd8, 8, Input<Floating>, AFRH),
-    PD9: (pd9, 9, Input<Floating>, AFRH),
-    PD10: (pd10, 10, Input<Floating>, AFRH),
-    PD11: (pd11, 11, Input<Floating>, AFRH),
-    PD12: (pd12, 12, Input<Floating>, AFRH),
-    PD13: (pd13, 13, Input<Floating>, AFRH),
-    PD14: (pd14, 14, Input<Floating>, AFRH),
-    PD15: (pd15, 15, Input<Floating>, AFRH),
-]);
-
-gpio!(GPIOE, gpioe, gpioc, iopeen, ioperst, PEx, [
-    PE0: (pe0, 0, Input<Floating>, AFRL),
-    PE1: (pe1, 1, Input<Floating>, AFRL),
-    PE2: (pe2, 2, Input<Floating>, AFRL),
-    PE3: (pe3, 3, Input<Floating>, AFRL),
-    PE4: (pe4, 4, Input<Floating>, AFRL),
-    PE5: (pe5, 5, Input<Floating>, AFRL),
-    PE6: (pe6, 6, Input<Floating>, AFRL),
-    PE7: (pe7, 7, Input<Floating>, AFRL),
-    PE8: (pe8, 8, Input<Floating>, AFRH),
-    PE9: (pe9, 9, Input<Floating>, AFRH),
-    PE10: (pe10, 10, Input<Floating>, AFRH),
-    PE11: (pe11, 11, Input<Floating>, AFRH),
-    PE12: (pe12, 12, Input<Floating>, AFRH),
-    PE13: (pe13, 13, Input<Floating>, AFRH),
-    PE14: (pe14, 14, Input<Floating>, AFRH),
-    PE15: (pe15, 15, Input<Floating>, AFRH),
-]);
-
-gpio!(GPIOF, gpiof, gpioc, iopfen, iopfrst, PFx, [
+gpio!(GPIOF, gpiof, gpiof, iopfen, iopfrst, PFx, [
     PF0: (pf0, 0, Input<Floating>, AFRL),
     PF1: (pf1, 1, Input<Floating>, AFRL),
     PF2: (pf2, 2, Input<Floating>, AFRL),
-    PF4: (pf3, 4, Input<Floating>, AFRL),
+    PF3: (pf3, 3, Input<Floating>, AFRL),
+    PF4: (pf4, 4, Input<Floating>, AFRL),
+    PF5: (pf5, 5, Input<Floating>, AFRL),
     PF6: (pf6, 6, Input<Floating>, AFRL),
+    PF7: (pf7, 7, Input<Floating>, AFRL),
+    PF8: (pf8, 8, Input<Floating>, AFRH),
     PF9: (pf9, 9, Input<Floating>, AFRH),
     PF10: (pf10, 10, Input<Floating>, AFRH),
+    PF11: (pf11, 11, Input<Floating>, AFRH),
+    PF12: (pf12, 12, Input<Floating>, AFRH),
+    PF13: (pf13, 13, Input<Floating>, AFRH),
+    PF14: (pf14, 14, Input<Floating>, AFRH),
+    PF15: (pf15, 15, Input<Floating>, AFRH),
 ]);

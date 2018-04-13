@@ -1,7 +1,7 @@
 //! Inter-Integrated Circuit (I2C) bus
 
 use cast::u8;
-use stm32f30x::{I2C1, I2C2};
+use stm32f0x0::{I2C1, I2C2};
 
 use gpio::gpioa::{PA10, PA9};
 use gpio::gpiob::{PB6, PB7, PB8, PB9};
