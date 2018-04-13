@@ -123,9 +123,7 @@ macro_rules! hal {
 }
 
 hal! {
-    TIM2: (tim2, tim2en, tim2rst),
     TIM3: (tim3, tim3en, tim3rst),
-    TIM4: (tim4, tim4en, tim4rst),
     TIM6: (tim6, tim6en, tim6rst),
     TIM7: (tim7, tim7en, tim7rst),
 }
