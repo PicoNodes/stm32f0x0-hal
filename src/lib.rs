@@ -30,7 +30,7 @@ extern crate embedded_hal as hal;
 extern crate nb;
 pub extern crate stm32f0x0;
 
-// pub mod delay;
+pub mod delay;
 pub mod flash;
 pub mod gpio;
 // pub mod i2c;
