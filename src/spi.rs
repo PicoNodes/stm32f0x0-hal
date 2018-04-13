@@ -192,9 +192,8 @@ macro_rules! hal {
 }
 
 hal! {
-    SPI1: (spi1, APB2, spi1en, spi1rst, pclk2),
+    SPI1: (spi1, APB2, spi1en, spi1rst, pclk1),
     SPI2: (spi2, APB1, spi2en, spi2rst, pclk1),
-    SPI3: (spi3, APB1, spi3en, spi3rst, pclk1),
 }
 
 // FIXME not working
