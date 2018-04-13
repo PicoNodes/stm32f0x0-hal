@@ -47,10 +47,16 @@ unsafe impl TxPin<USART1> for PA9<AF1> {}
 unsafe impl TxPin<USART1> for PA14<AF1> {}
 unsafe impl TxPin<USART1> for PB6<AF0> {}
 
+unsafe impl TxPin<USART2> for PA2<AF1> {}
+unsafe impl TxPin<USART2> for PA14<AF1> {}
+
 unsafe impl RxPin<USART1> for PA3<AF1> {}
 unsafe impl RxPin<USART1> for PA10<AF1> {}
 unsafe impl RxPin<USART1> for PA15<AF1> {}
 unsafe impl RxPin<USART1> for PB7<AF0> {}
+
+unsafe impl RxPin<USART2> for PA3<AF1> {}
+unsafe impl RxPin<USART2> for PA15<AF1> {}
 
 /// Serial abstraction
 pub struct Serial<USART, PINS> {
