@@ -497,6 +497,18 @@ macro_rules! gpio {
                     }
                 }
 
+                #[cfg(feature = "unproven_opendrain_input")]
+                impl InputPin for $PXi<Output<OpenDrain>> {
+                    fn is_high(&self) -> bool {
+                        !InputPin::is_low(self)
+                    }
+
+                    fn is_low(&self) -> bool {
+                        // NOTE(unsafe) atomic read with no side effects
+                        unsafe { (*$GPIOX::ptr()).idr.read().bits() & (1 << $i) == 0 }
+                    }
+                }
+
                 #[cfg(feature = "unproven")]
                 impl<MODE> InputPin for $PXi<Input<MODE>> {
                     fn is_high(&self) -> bool {
