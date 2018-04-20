@@ -5,23 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased]
-
-## [v0.1.2] - 2018-02-09
-
-### Fixed
-
-- `Timer::tim*` constructors so they don't disable other peripherals.
-
-## [v0.1.1] - 2018-01-20
+## [v0.1.3] - 2018-04-19
 
 ### Added
 
-- Add a "rt" Cargo feature that enables the "rt" feature of the stm32f30x dependency.
+- Implemented `InputPin` for pins in open-drain output mode (behind a flag, since it's a pretty ugly hack)
 
-## v0.1.0 - 2018-01-17
+## [v0.1.2] - 2018-04-19
+
+### Added
+
+- Implemented `InputPin` for pins input mode
+
+## [v0.1.1] - 2018-04-13
+
+### Fixed
+
+- A few places still referred to stm32f30x
+
+## v0.1.0 - 2018-04-13
 
 Initial release
-
-[Unreleased]: https://github.com/japaric/stm32f30x-hal/compare/v0.1.1...HEAD
-[v0.1.1]: https://github.com/japaric/stm32f30x-hal/compare/v0.1.0...v0.1.1
