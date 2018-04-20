@@ -19,6 +19,7 @@ impl RccExt for RCC {
         Rcc {
             ahb: AHB { _0: () },
             apb1: APB1 { _0: () },
+            apb2: APB2 { _0: () },
             cfgr: CFGR {
                 hclk: None,
                 pclk1: None,
@@ -35,6 +36,8 @@ pub struct Rcc {
     pub ahb: AHB,
     /// Advanced Peripheral Bus 1 (APB1) registers
     pub apb1: APB1,
+    /// Advanced Peripheral Bus 2 (APB2) registers
+    pub apb2: APB2,
     /// Clock configuration
     pub cfgr: CFGR,
 }
