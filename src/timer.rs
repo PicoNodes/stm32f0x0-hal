@@ -3,9 +3,9 @@
 use cast::{u16, u32};
 use hal::timer::{CountDown, Periodic};
 use nb;
-use stm32f0x0::{TIM3, TIM6, TIM7};
+use stm32f0x0::{TIM3, TIM6, TIM7, TIM14, TIM15, TIM16, TIM17};
 
-use rcc::{APB1, Clocks};
+use rcc::{APB1, APB2, Clocks};
 use time::Hertz;
 
 /// Hardware timers
@@ -22,7 +22,7 @@ pub enum Event {
 }
 
 macro_rules! hal {
-    ($($TIM:ident: ($tim:ident, $timXen:ident, $timXrst:ident),)+) => {
+    ($($TIM:ident: ($tim:ident, $timXen:ident, $timXrst:ident, $APBX:ident),)+) => {
         $(
             impl Periodic for Timer<$TIM> {}
 
@@ -72,14 +72,14 @@ macro_rules! hal {
                 // even if the `$TIM` are non overlapping (compare to the `free` function below
                 // which just works)
                 /// Configures a TIM peripheral as a periodic count down timer
-                pub fn $tim<T>(tim: $TIM, timeout: T, clocks: Clocks, apb1: &mut APB1) -> Self
+                pub fn $tim<T>(tim: $TIM, timeout: T, clocks: Clocks, apb: &mut $APBX) -> Self
                 where
                     T: Into<Hertz>,
                 {
                     // enable and reset peripheral to a clean slate state
-                    apb1.enr().modify(|_, w| w.$timXen().set_bit());
-                    apb1.rstr().modify(|_, w| w.$timXrst().set_bit());
-                    apb1.rstr().modify(|_, w| w.$timXrst().clear_bit());
+                    apb.enr().modify(|_, w| w.$timXen().set_bit());
+                    apb.rstr().modify(|_, w| w.$timXrst().set_bit());
+                    apb.rstr().modify(|_, w| w.$timXrst().clear_bit());
 
                     let mut timer = Timer {
                         clocks,
@@ -123,7 +123,11 @@ macro_rules! hal {
 }
 
 hal! {
-    TIM3: (tim3, tim3en, tim3rst),
-    TIM6: (tim6, tim6en, tim6rst),
-    TIM7: (tim7, tim7en, tim7rst),
+    TIM3: (tim3, tim3en, tim3rst, APB1),
+    TIM6: (tim6, tim6en, tim6rst, APB1),
+    TIM7: (tim7, tim7en, tim7rst, APB1),
+    TIM14: (tim14, tim14en, tim14rst, APB1),
+    TIM15: (tim15, tim15en, tim15rst, APB2),
+    TIM16: (tim16, tim16en, tim16rst, APB2),
+    TIM17: (tim17, tim17en, tim17rst, APB2),
 }
