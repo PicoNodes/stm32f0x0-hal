@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v0.1.4] - 2018-04-20
+
+### Added
+
+- Methods to switch pins into `AF0` and `AF1` modes
+
 ## [v0.1.3] - 2018-04-19
 
 ### Added
