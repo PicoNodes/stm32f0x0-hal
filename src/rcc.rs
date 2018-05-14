@@ -171,7 +171,7 @@ impl CFGR {
 
         let hclk = sysclk / (1 << (hpre_bits - 0b0111));
 
-        assert!(hclk <= 72_000_000);
+        assert!(hclk <= 48_000_000);
 
         let ppre1_bits = self.pclk1
             .map(|pclk1| match hclk / pclk1 {
@@ -187,7 +187,7 @@ impl CFGR {
         let ppre1 = 1 << (ppre1_bits - 0b011);
         let pclk1 = hclk / u32(ppre1);
 
-        assert!(pclk1 <= 36_000_000);
+        assert!(pclk1 <= 48_000_000);
 
         // adjust flash wait states
         unsafe {

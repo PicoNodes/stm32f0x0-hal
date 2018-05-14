@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [v0.1.7] - 2018-05-14
+
+### Fixed
+
+- Updated clock limits to apply to the F0x0 chips
+
 ## [v0.1.6] - 2018-04-20
 
 ### Added
